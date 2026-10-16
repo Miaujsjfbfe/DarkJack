@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bf4uonr43la33"]
+
+[ext_resource type="Script" uid="uid://canktios2t2lq" path="res://mesa_juego.gd" id="1_klhuf"]
+
+[node name="MesaJuego" type="Control" unique_id=956942640]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 334.0
+offset_top = 326.0
+offset_right = 334.0
+offset_bottom = 326.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_klhuf")
+
+[node name="BotonPedir" type="Button" parent="." unique_id=2052386804]
+layout_mode = 0
+offset_left = 641.5186
+offset_top = -40.400696
+offset_right = 690.5186
+offset_bottom = -9.400696
+text = "Pedir"
+
+[node name="BotonParar" type="Button" parent="." unique_id=706867904]
+layout_mode = 0
+offset_left = 643.86115
+offset_top = 34.56122
+offset_right = 694.86115
+offset_bottom = 65.56122
+text = "Parar"
+
+[node name="PuntosJugador" type="Label" parent="." unique_id=1425729011]
+layout_mode = 0
+offset_left = 100.74484
+offset_top = 175.4043
+offset_right = 140.74484
+offset_bottom = 198.4043
+
+[node name="PuntosCrupier" type="Label" parent="." unique_id=1824881810]
+layout_mode = 0
+offset_left = 283.51355
+offset_top = -196.16159
+offset_right = 323.51355
+offset_bottom = -173.16159
+
+[node name="CartasJugador" type="Label" parent="." unique_id=1964231596]
+layout_mode = 0
+offset_left = 5.880829
+offset_top = 181.21231
+offset_right = 45.88083
+offset_bottom = 204.21231
+
+[node name="CartasCrupier" type="Label" parent="." unique_id=1931910385]
+layout_mode = 0
+offset_left = 231.33832
+offset_top = -251.53119
+offset_right = 271.33832
+offset_bottom = -228.53119
+
+[node name="MensajeEstado" type="Label" parent="." unique_id=281631233]
+layout_mode = 0
+offset_left = 207.91272
+offset_top = 5.085602
+offset_right = 247.91272
+offset_bottom = 28.085602
+
+[connection signal="pressed" from="BotonPedir" to="." method="boton_pedir_presionado"]
+[connection signal="pressed" from="BotonParar" to="." method="boton_parar_presionado"]
