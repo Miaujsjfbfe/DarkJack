@@ -1,11 +1,16 @@
 extends Control
 
-@onready var boton_pedir: Button = $BotonPedir
-@onready var boton_parar: Button = $BotonParar
+#Cargamos la carta
+const ESCENA_CARTA = preload("res://carta.tscn")
+@onready var cartas_jugador_container: HBoxContainer = $CartasJugador
+@onready var cartas_crupier_container: HBoxContainer = $CartasCrupier
+
+const PantallaResultado = preload("res://pantalla_resultado.gd")
+
+@onready var boton_pedir: Button = $Botones/BotonPedir
+@onready var boton_parar: Button = $Botones/BotonParar
 @onready var label_puntos_jugador: Label = $PuntosJugador
 @onready var label_puntos_crupier: Label = $PuntosCrupier
-@onready var label_cartas_jugador: Label = $CartasJugador
-@onready var label_cartas_crupier: Label = $CartasCrupier
 @onready var label_mensaje: Label = $MensajeEstado
 
 var vidas: int = 3
@@ -15,26 +20,42 @@ var mazo: Array = []
 var mano_jugador: Array = []
 var mano_crupier: Array = []
 
+
+func agregar_carta_visual(numero: String, pinta: String, es_jugador: bool) -> void:
+
+	var nueva_carta = ESCENA_CARTA.instantiate()
+	var contenedor: HBoxContainer
+	
+	if es_jugador:
+		contenedor = cartas_jugador_container
+	else:
+		contenedor = cartas_crupier_container
+		
+	# 3. La agregamos al contenedor
+	contenedor.add_child(nueva_carta)
+	
+	# 4. Le pasamos el número y la pinta
+	nueva_carta.configurar_carta(numero, pinta)
+
 func desactivar_botones() -> void:
 	boton_pedir.disabled = true
 	boton_parar.disabled = true
 
 func actualizar_interfaz() -> void:
-	# 1. Actualizamos puntos
+	# Actualizamos puntos
 	label_puntos_jugador.text = "Total: " + str(calcular_puntos(mano_jugador))
 	label_puntos_crupier.text = "Total: " + str(calcular_puntos(mano_crupier))
+
+func reiniciar_mesa() -> void:
+	# Limpiamos las manos lógicas
+	mano_jugador.clear()
+	mano_crupier.clear()
 	
-	# 2. Formateamos las cartas del jugador para el Label
-	var texto_cartas_j = "Tus Cartas:\n"
-	for carta in mano_jugador:
-		texto_cartas_j += str(carta["numero"]) + " " + carta["pinta"] + "\n"
-	label_cartas_jugador.text = texto_cartas_j
-	
-	# 3. Formateamos las cartas del crupier
-	var texto_cartas_c = "Cartas Crupier:\n"
-	for carta in mano_crupier:
-		texto_cartas_c += str(carta["numero"]) + " " + carta["pinta"] + "\n"
-	label_cartas_crupier.text = texto_cartas_c
+	# Borramos físicamente las cartas visuales anteriores de los contenedores
+	for n in cartas_jugador_container.get_children():
+		n.queue_free()
+	for n in cartas_crupier_container.get_children():
+		n.queue_free()
 
 func crear_mazo() -> void:
 	
@@ -66,52 +87,65 @@ func calcular_puntos(mano:Array) -> int:
 		total += carta["numero"]
 	return total
 
-func ver_cartas(mano:Array) -> void:
-	for carta in mano:
-		print("- ", carta["numero"], carta["pinta"])
-
 func turno_crupier() -> void:
 	print("\n--- TURNO DEL CRUPIER ---")
 	
 	while calcular_puntos(mano_crupier) < 19:
-		mano_crupier.append(sacar_carta())
-		ver_cartas(mano_crupier)	
+		var carta = sacar_carta()
+		mano_crupier.append(carta)
+		
+		agregar_carta_visual(str(carta.numero), carta.pinta, false)
 		
 		var puntos = calcular_puntos(mano_crupier)
-	
 		print("Total: ", puntos)
 		
 		actualizar_interfaz()
 		
-		if puntos == 21:
-			print("¡El crupier hizo 21 puntos exactos!")
-			print("¡PERDISTE!")
-			desactivar_botones()
-			return
-		elif puntos > 21:
-			print("El crupier se pasó de 21.")
-			print("¡GANASTE!")
-			desactivar_botones()
-			return
+		if puntos > 21:
+			break
 
-	determinar_ganador()
+	determinar_ganador(true)
 	desactivar_botones()
 
-func determinar_ganador() -> void:
+
+func determinar_ganador(es_fin_forzado: bool = false) -> void:
 	var puntos_j = calcular_puntos(mano_jugador)
 	var puntos_c = calcular_puntos(mano_crupier)
-	
-	print("\n=== RESULTADO FINAL ===")
-	print("Jugador: ", puntos_j, " pts | Crupier: ", puntos_c, " pts")
-	
+
+	# JUGADOR
+	if puntos_j > 21:
+		mostrar_resultado("PERDISTE", "Te pasaste de 21 puntos.", puntos_j, puntos_c)
+		return
+
+	if puntos_j == 21:
+		mostrar_resultado("¡GANASTE!", "¡Hiciste 21 puntos exactos!", puntos_j, puntos_c)
+		return
+
+	# CRUPIER
 	if puntos_c > 21:
-		print("¡El crupier se pasó! ¡GANASTE!")
-	elif puntos_j > puntos_c:
-		print("¡Superaste al crupier! ¡GANASTE!")
-	elif puntos_c > puntos_j:
-		print("El crupier gana.")
-	else:
-		print("¡Empate!")
+		mostrar_resultado("¡GANASTE!", "El crupier se pasó de 21 puntos.", puntos_j, puntos_c)
+		return
+		
+	if puntos_c == 21:
+		mostrar_resultado("PERDISTE", "¡El crupier hizo 21 puntos exactos!", puntos_j, puntos_c)
+
+	# COMPARAR 
+	if es_fin_forzado:
+		if puntos_j > puntos_c:
+			mostrar_resultado("¡GANASTE!", "Te acercaste más a 21.", puntos_j, puntos_c)
+		elif puntos_j < puntos_c:
+			mostrar_resultado("PERDISTE", "El crupier se acercó más a 21.", puntos_j, puntos_c)
+		else:
+			mostrar_resultado("Empate", "Ambos obtuvieron el mismo puntaje.", puntos_j, puntos_c)
+
+func mostrar_resultado(titulo: String, detalle: String, pts_j: int, pts_c: int):
+	PantallaResultado.datos_partida = {
+		"titulo": titulo,
+		"descripcion": detalle,
+		"pts_jugador": pts_j,
+		"pts_crupier": pts_c
+	}
+	get_tree().change_scene_to_file("res://pantalla_resultado.tscn")
 
 
 #JUEGO PRINCIPAL
@@ -120,39 +154,42 @@ func _ready() -> void:
 	crear_mazo()
 	mezclar_mazo()
 	
+	mano_jugador.clear()
+	
 	# Repartimos 2 cartas al jugador
-	mano_jugador.append(sacar_carta())
-	mano_jugador.append(sacar_carta())
+	for i in range(2):
+		var carta_j = sacar_carta()
+		mano_jugador.append(carta_j)
+		agregar_carta_visual(str(carta_j.numero), carta_j.pinta, true)
 	
 	# Repartimos 2 cartas al crupier
-	mano_crupier.append(sacar_carta())
-	mano_crupier.append(sacar_carta())
+	for j in range(2):
+		var carta_c = sacar_carta()
+		mano_crupier.append(carta_c)
+		agregar_carta_visual(str(carta_c.numero), carta_c.pinta, false)
+	
 	
 	# Mostramos los resultados en la consola de salida
 	print("Tus cartas: ")
-	ver_cartas(mano_jugador)
 	print("Total: ", calcular_puntos(mano_jugador))
 	
 	actualizar_interfaz()
 
+
 #ACCIONES DE BOTONES
 func boton_pedir_presionado() -> void:
 	
-	mano_jugador.append(sacar_carta())
-	ver_cartas(mano_jugador)
+	var nueva_carta = sacar_carta()
+	mano_jugador.append(nueva_carta)
+	
+	agregar_carta_visual(str(nueva_carta.numero), nueva_carta.pinta, true)
 	
 	var puntos = calcular_puntos(mano_jugador)
 	print("Total: ", puntos)
 	
-	if puntos == 21:
-		print("¡GANASTE!")
-		print("¡", nombre_jugador, " hizo 21 puntos exactos!")
-		desactivar_botones()
-	elif puntos > 21:
-		print("¡Te pasaste de 21! Perdiste.")
-		desactivar_botones()
-	
 	actualizar_interfaz()
+
+	determinar_ganador(false)
 
 func boton_parar_presionado() -> void:
 	turno_crupier()

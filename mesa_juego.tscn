@@ -4,65 +4,92 @@
 
 [node name="MesaJuego" type="Control" unique_id=956942640]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 334.0
-offset_top = 326.0
-offset_right = 334.0
-offset_bottom = 326.0
+anchor_left = 0.5
+anchor_top = 0.503
+anchor_right = 0.5
+anchor_bottom = 0.503
+offset_left = -242.0
+offset_top = 0.055999756
+offset_right = -242.0
+offset_bottom = 0.055999756
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_klhuf")
 
-[node name="BotonPedir" type="Button" parent="." unique_id=2052386804]
-layout_mode = 0
-offset_left = 641.5186
-offset_top = -40.400696
-offset_right = 690.5186
-offset_bottom = -9.400696
-text = "Pedir"
+[node name="Fondo" type="ColorRect" parent="." unique_id=897291977]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -333.0
+offset_top = -326.0
+offset_right = 817.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.23529412, 0.09411765, 1)
 
-[node name="BotonParar" type="Button" parent="." unique_id=706867904]
-layout_mode = 0
-offset_left = 643.86115
-offset_top = 34.56122
-offset_right = 694.86115
-offset_bottom = 65.56122
+[node name="Botones" type="VBoxContainer" parent="." unique_id=2040045701]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 1
+offset_left = 562.0
+offset_top = -46.0
+offset_right = 742.0
+offset_bottom = 41.0
+theme_override_constants/separation = 15
+
+[node name="BotonParar" type="Button" parent="Botones" unique_id=706867904]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Parar"
+
+[node name="BotonPedir" type="Button" parent="Botones" unique_id=2052386804]
+custom_maximum_size = Vector2(190, 170)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Pedir"
 
 [node name="PuntosJugador" type="Label" parent="." unique_id=1425729011]
 layout_mode = 0
-offset_left = 100.74484
-offset_top = 175.4043
-offset_right = 140.74484
-offset_bottom = 198.4043
+offset_left = 178.0
+offset_top = 90.0
+offset_right = 306.0
+offset_bottom = 122.0
+size_flags_vertical = 3
+text = "Total Jugador: 21"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CartasJugador" type="HBoxContainer" parent="." unique_id=368060633]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 122.0
+offset_right = 434.0
+offset_bottom = 250.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
 
 [node name="PuntosCrupier" type="Label" parent="." unique_id=1824881810]
 layout_mode = 0
-offset_left = 283.51355
-offset_top = -196.16159
-offset_right = 323.51355
-offset_bottom = -173.16159
+offset_left = 178.0
+offset_top = -134.0
+offset_right = 306.0
+offset_bottom = -102.0
+size_flags_vertical = 1
+text = "Total Crupier: 18"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="CartasJugador" type="Label" parent="." unique_id=1964231596]
+[node name="CartasCrupier" type="HBoxContainer" parent="." unique_id=2125791870]
+propagate_maximum_size = false
 layout_mode = 0
-offset_left = 5.880829
-offset_top = 181.21231
-offset_right = 45.88083
-offset_bottom = 204.21231
+offset_left = 50.0
+offset_top = -262.0
+offset_right = 434.0
+offset_bottom = -144.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.0
 
-[node name="CartasCrupier" type="Label" parent="." unique_id=1931910385]
-layout_mode = 0
-offset_left = 231.33832
-offset_top = -251.53119
-offset_right = 271.33832
-offset_bottom = -228.53119
-
-[node name="MensajeEstado" type="Label" parent="." unique_id=281631233]
-layout_mode = 0
-offset_left = 207.91272
-offset_top = 5.085602
-offset_right = 247.91272
-offset_bottom = 28.085602
-
-[connection signal="pressed" from="BotonPedir" to="." method="boton_pedir_presionado"]
-[connection signal="pressed" from="BotonParar" to="." method="boton_parar_presionado"]
+[connection signal="pressed" from="Botones/BotonParar" to="." method="boton_parar_presionado"]
+[connection signal="pressed" from="Botones/BotonPedir" to="." method="boton_pedir_presionado"]

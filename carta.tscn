@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b7gcjpw3p318n"]
+
+[ext_resource type="Script" uid="uid://bkxcrvnp43h6i" path="res://carta.gd" id="1_nqtiw"]
+
+[node name="Carta" type="PanelContainer" unique_id=1339879992]
+custom_minimum_size = Vector2(70, 100)
+offset_left = 411.58542
+offset_top = 530.3068
+offset_right = 481.58542
+offset_bottom = 630.3068
+script = ExtResource("1_nqtiw")
+
+[node name="TextoCarta" type="Label" parent="." unique_id=292742758]
+layout_mode = 2
+text = "7
+♠"
+horizontal_alignment = 1
+vertical_alignment = 1
