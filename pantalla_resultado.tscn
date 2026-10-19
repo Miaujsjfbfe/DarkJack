@@ -5,29 +5,32 @@
 [node name="PantallaResultado" type="Control" unique_id=977516961]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+pivot_offset = Vector2(-842, 717)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_o8ryq")
+metadata/_edit_use_anchors_ = true
 
 [node name="Fondo" type="ColorRect" parent="." unique_id=1064261121]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1112.0
-offset_bottom = 609.0
+anchors_preset = -1
+offset_left = 128.0
+offset_top = 88.0
+offset_right = 1024.0
+offset_bottom = 556.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.29803923, 0.03137255, 0.23137255, 1)
+pivot_offset = Vector2(1329, 454)
+color = Color(0, 0, 0, 0.5803922)
 
 [node name="MensajeGanador" type="Label" parent="." unique_id=2035568858]
 layout_mode = 0
-offset_left = 384.0
-offset_top = 152.0
-offset_right = 704.0
-offset_bottom = 221.0
+offset_left = 416.0
+offset_top = 186.0
+offset_right = 736.0
+offset_bottom = 255.0
 theme_override_font_sizes/font_size = 50
-text = "¡GANASTE!"
+text = "lol!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -36,30 +39,30 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.8000001
 anchor_bottom = 1.2
-offset_left = 392.0
-offset_top = 232.0
-offset_right = 640.0
-offset_bottom = 224.0
+offset_left = 448.0
+offset_top = 272.0
+offset_right = 710.0
+offset_bottom = 295.0
 text = "El jugador hizo 21 puntos exactos."
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PuntosCrupier" type="Label" parent="." unique_id=195844161]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 368.0
-offset_right = 640.0
-offset_bottom = 391.0
+offset_left = 480.0
+offset_top = 371.0
+offset_right = 672.0
+offset_bottom = 394.0
 text = "Puntos Crupier: 18"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PuntosJugador" type="Label" parent="." unique_id=1702731531]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 320.0
-offset_right = 640.0
-offset_bottom = 343.0
+offset_left = 480.0
+offset_top = 336.0
+offset_right = 672.0
+offset_bottom = 359.0
 text = "Puntos Jugador: 21"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -69,10 +72,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.6
 anchor_bottom = 0.8
-offset_left = 576.0
+offset_left = 640.0
 offset_top = 448.0
-offset_right = 744.0
-offset_bottom = 456.0
+offset_right = 800.0
+offset_bottom = 496.0
 theme_override_font_sizes/font_size = 20
 text = "Salir"
 
@@ -81,10 +84,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.1
 anchor_bottom = 0.1
-offset_left = 320.0
+offset_left = 352.0
 offset_top = 448.0
-offset_right = 508.0
-offset_bottom = 484.0
+offset_right = 513.0
+offset_bottom = 496.0
 theme_override_font_sizes/font_size = 20
 text = "Jugar de nuevo"
 

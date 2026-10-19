@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bf4uonr43la33"]
 
 [ext_resource type="Script" uid="uid://canktios2t2lq" path="res://mesa_juego.gd" id="1_klhuf"]
+[ext_resource type="PackedScene" uid="uid://dyk53ay5yh7r8" path="res://pantalla_resultado.tscn" id="2_6ljfh"]
 
 [node name="MesaJuego" type="Control" unique_id=956942640]
 layout_mode = 3
@@ -90,6 +91,11 @@ offset_bottom = -144.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 3.0
+
+[node name="PantallaResultado" type="CanvasLayer" parent="." unique_id=1921705354]
+visible = false
+
+[node name="PantallaResultado" parent="PantallaResultado" unique_id=977516961 instance=ExtResource("2_6ljfh")]
 
 [connection signal="pressed" from="Botones/BotonParar" to="." method="boton_parar_presionado"]
 [connection signal="pressed" from="Botones/BotonPedir" to="." method="boton_pedir_presionado"]

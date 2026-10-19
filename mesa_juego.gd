@@ -1,4 +1,5 @@
 extends Control
+var juego_terminado: bool = false
 
 #Cargamos la carta
 const ESCENA_CARTA = preload("res://carta.tscn")
@@ -11,8 +12,8 @@ const PantallaResultado = preload("res://pantalla_resultado.gd")
 @onready var boton_parar: Button = $Botones/BotonParar
 @onready var label_puntos_jugador: Label = $PuntosJugador
 @onready var label_puntos_crupier: Label = $PuntosCrupier
-@onready var label_mensaje: Label = $MensajeEstado
 
+	
 var vidas: int = 3
 var nombre_jugador: String = "SanBaek"
 
@@ -90,7 +91,8 @@ func calcular_puntos(mano:Array) -> int:
 func turno_crupier() -> void:
 	print("\n--- TURNO DEL CRUPIER ---")
 	
-	while calcular_puntos(mano_crupier) < 19:
+	while calcular_puntos(mano_crupier) < 17:
+		await get_tree().create_timer(0.5).timeout
 		var carta = sacar_carta()
 		mano_crupier.append(carta)
 		
@@ -139,13 +141,26 @@ func determinar_ganador(es_fin_forzado: bool = false) -> void:
 			mostrar_resultado("Empate", "Ambos obtuvieron el mismo puntaje.", puntos_j, puntos_c)
 
 func mostrar_resultado(titulo: String, detalle: String, pts_j: int, pts_c: int):
-	PantallaResultado.datos_partida = {
+	if juego_terminado:
+		return
+		
+	juego_terminado = true
+	
+	# Deshabilitar botones de la mesa
+	$Botones/BotonPedir.disabled = true
+	$Botones/BotonParar.disabled = true
+	
+	var popup = $PantallaResultado/PantallaResultado
+	
+	popup.cargar_datos({
 		"titulo": titulo,
 		"descripcion": detalle,
 		"pts_jugador": pts_j,
 		"pts_crupier": pts_c
-	}
-	get_tree().change_scene_to_file("res://pantalla_resultado.tscn")
+	})
+	
+	await get_tree().create_timer(0.5).timeout
+	$PantallaResultado.visible = true
 
 
 #JUEGO PRINCIPAL
@@ -178,6 +193,12 @@ func _ready() -> void:
 
 #ACCIONES DE BOTONES
 func boton_pedir_presionado() -> void:
+	
+	if juego_terminado:
+		return
+	
+	await get_tree().create_timer(0.5).timeout
+	#lo pongo aquí?
 	
 	var nueva_carta = sacar_carta()
 	mano_jugador.append(nueva_carta)
