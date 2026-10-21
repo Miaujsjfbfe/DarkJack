@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ctb70qj11usl0"]
 
 [ext_resource type="Script" uid="uid://do3jiv6pe0eqv" path="res://menu_principal.gd" id="1_bj1uy"]
+[ext_resource type="Texture2D" uid="uid://d2blliexa0ym4" path="res://fotos/fondo_menu.jpg" id="2_gmcsc"]
 
 [node name="MenuPrincipal" type="Control" unique_id=1245432011]
 layout_mode = 3
@@ -11,54 +12,57 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bj1uy")
 
-[node name="Fondo" type="ColorRect" parent="." unique_id=1240558218]
+[node name="Fondo" type="TextureRect" parent="." unique_id=191791169]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 0.4329834
+offset_bottom = 2.2296143
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.09476717, 0.26552865, 0.03203359, 1)
+rotation = -6.2831855
+texture = ExtResource("2_gmcsc")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Título" type="Label" parent="." unique_id=1883330416]
 layout_mode = 0
-offset_left = 452.0
-offset_top = 200.0
-offset_right = 698.0
-offset_bottom = 223.0
-theme_override_font_sizes/font_size = 50
+offset_left = 448.0
+offset_top = 152.0
+offset_right = 704.0
+offset_bottom = 235.0
+theme_override_font_sizes/font_size = 60
 text = "DarkJack"
 horizontal_alignment = 1
 
-[node name="ContenedorMenu" type="VBoxContainer" parent="." unique_id=47504038]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 449.0
-offset_top = -5.0
-offset_right = -457.0
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 12
-
-[node name="BotonJugar" type="Button" parent="ContenedorMenu" unique_id=1318134172]
-layout_mode = 2
+[node name="BotonSalir" type="Button" parent="." unique_id=599717635]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 456.0
+offset_right = 704.0
+offset_bottom = 512.0
 theme_override_font_sizes/font_size = 20
-text = "Jugar"
+text = "♣️ 	Salir 	♣️"
 
-[node name="BotonReglas" type="Button" parent="ContenedorMenu" unique_id=1089131661]
-layout_mode = 2
+[node name="BotonReglas" type="Button" parent="." unique_id=1089131661]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 384.0
+offset_right = 704.0
+offset_bottom = 440.0
 theme_override_font_sizes/font_size = 20
-text = "Reglas"
+text = "♥️ Reglas ♥️"
 
-[node name="BotonSalir" type="Button" parent="ContenedorMenu" unique_id=599717635]
-layout_mode = 2
+[node name="BotonJugar" type="Button" parent="." unique_id=1318134172]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 312.0
+offset_right = 704.0
+offset_bottom = 368.0
 theme_override_font_sizes/font_size = 20
-text = "Salir"
+text = "♠️ Jugar ♠️"
 
-[connection signal="pressed" from="ContenedorMenu/BotonJugar" to="." method="boton_jugar_presionado"]
-[connection signal="pressed" from="ContenedorMenu/BotonReglas" to="." method="boton_reglas_presionado"]
-[connection signal="pressed" from="ContenedorMenu/BotonSalir" to="." method="boton_salir_presionado"]
+[connection signal="pressed" from="BotonSalir" to="." method="boton_salir_presionado"]
+[connection signal="pressed" from="BotonReglas" to="." method="boton_reglas_presionado"]
+[connection signal="pressed" from="BotonJugar" to="." method="boton_jugar_presionado"]

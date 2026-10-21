@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://dnxojvritq2y"]
+
+[ext_resource type="Script" uid="uid://dioe4lnii1uwr" path="res://reglas.gd" id="1_axl31"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj1uy"]
+bg_color = Color(0, 0, 0, 0.7019608)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4qcs"]
+bg_color = Color(0.037983395, 0.037983395, 0.037983395, 1)
+
+[node name="Reglas" type="Panel" unique_id=256085011]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 576.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bj1uy")
+script = ExtResource("1_axl31")
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=1813940561]
+visible = false
+layout_mode = 1
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 1088.0
+offset_bottom = 624.0
+color = Color(0, 0, 0, 0.70980394)
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=1277510573]
+visible = false
+layout_mode = 0
+offset_left = 184.0
+offset_right = 240.0
+offset_bottom = 40.0
+
+[node name="TextoReglas" type="RichTextLabel" parent="." unique_id=1566004447]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 960.0
+offset_bottom = 448.0
+theme_override_font_sizes/normal_font_size = 21
+text = "Objetivo: Acercarse lo más posible a 21 sin pasarse.
+
+Puntuación: En pantalla se va actualizando la puntuación del jugador y del crupier.
+
+Turno: Pides cartas con el botón de \"Pedir\" o te plantas con \"Plantarse\". ¡Cuidado con el crupier, que ahora juega arriesgado!"
+
+[node name="BotonVolver" type="Button" parent="." unique_id=399527234]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 376.0
+offset_right = 272.0
+offset_bottom = 448.0
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_e4qcs")
+text = "Volver"
+
+[connection signal="pressed" from="BotonVolver" to="." method="boton_reglas_presionado"]
